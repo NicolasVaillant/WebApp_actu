@@ -1,0 +1,323 @@
+*, ::before, ::after{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Rubik', sans-serif;
+    user-select: none;
+    transition: set_content 1s;
+}
+.spin{
+    transform: rotate(180deg)!important;
+    transition: var(--transition);
+}
+html{
+    scroll-behavior: smooth;
+}
+:root {
+    --w: #ffffff;
+    --b:#2B2B2BFF;
+    --bl: #3fd0d5;
+    --hoverDIV: #f3f3f3;
+
+    --borderR : 15px;
+    --borderR5 : 5px;
+
+    --transition : all .5s!important;
+}
+/*::-webkit-scrollbar {*/
+/*    width: 1em;*/
+/*    background: red;*/
+/*}*/
+
+.container{
+    height: auto;
+    border-radius: var(--borderR);
+    margin: 2em auto;
+    overflow-x: hidden;
+}
+aside{
+    background: var(--w);
+    height: 100%;
+    width: 5vw;
+    position: fixed;
+    top: 0;
+    left: 5%;
+    display: flex;
+}
+.lineAdvancement{
+    border-left: 2px solid black;
+    height: 70%;
+    width: 1px;
+    margin: auto;
+    position: relative;
+}
+.circleAdvancement{
+    position: absolute;
+    top: 0;
+    left: -7px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50px;
+    border: 2px solid black;
+    background: var(--w);
+    z-index: 10;
+}
+.newCircleAnchors{
+    position: absolute;
+    top: 0;
+    left: -6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    border: 2px solid grey;
+    background: var(--w);
+    transform: scale(1);
+    transition: var(--transition);
+    cursor: pointer;
+}
+.refreshActus{
+    border: none;
+    outline: none;
+    background: var(--w);
+    cursor: pointer;!important;
+    border-radius: 50px;
+    padding: .8em;
+    transform: rotate(0deg);
+    transition: var(--transition);
+}
+
+.refreshActus:hover{
+    background: var(--hoverDIV);
+    transition: var(--transition);
+}
+.iconRefreshActus{
+    width: 25px;
+    height: 25px;
+    margin: auto;
+}
+input{
+    display: none;
+}
+.header,.footer,.tri{
+    background: var(--w);
+    height: 10vh;
+    width: 70%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    align-content: center;
+    position: relative;
+    gap: 2em;
+}
+.tri{
+    display: grid;
+    grid-template-columns: 70% auto;
+}
+
+.triSelect,.flux{
+    display: flex;
+    background: var(--w);
+    transition: var(--transition);
+    border-radius: 50px;
+    align-content: center;
+    gap: 5px;
+    align-items: center;
+}
+.triSelect{
+    position: absolute;
+    right: 0;
+    z-index: 10;
+}
+.flux{
+    gap: .8em;
+    overflow: hidden;
+}
+.contentFlux{
+    font-size: 1.2em;
+    background: var(--hoverDIV);
+    padding: 1em;
+    border-radius: 50px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    gap: .5em;
+    transition: var(--transition);
+}
+input[name="radio"]:checked+.contentFlux{
+    border: 2px solid var(--bl);
+}
+.contentFlux:hover{
+    border: 2px solid var(--bl);
+}
+
+.iconFlux{
+    width: 20px;
+    height: 20px;
+    margin: auto;
+}
+.triSelect p{
+    margin-right: 1em;
+}
+.triSort{
+    background: var(--w);
+    width: 60px;
+    height: auto;
+    cursor: pointer;
+    border-radius: 50px;
+    padding: .8em;
+    transition: var(--transition);
+    margin: auto;
+}
+.triSort:hover{
+     background: var(--hoverDIV);
+     transition: var(--transition);
+ }
+.nameActus{
+    font-size: 1.2em;
+    background: var(--w);
+    padding: 1em;
+    border-radius: 50px;
+    transition: var(--transition);
+}
+.nameActus:hover{
+    background: var(--hoverDIV);
+    transition: var(--transition);
+}
+.nameActus a{
+    text-decoration: none;
+    color: var(--bl);
+}
+.nameActus a:visited{
+    text-decoration: none;
+    color: inherit;
+}
+.footer{
+    gap: 2em;
+}
+.MajContent,.fromBottomToTop{
+    display: flex;
+    background: var(--w);
+    padding: 1em;
+    border-radius: 50px;
+    align-content: center;
+    position: absolute;
+    right: 0;
+    gap: 5px;
+    align-items: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.MajContent{
+    cursor: auto;
+}
+.LastMaj{
+    color: var(--bl);
+}
+.fromBottomToTop:hover{
+    background: var(--hoverDIV);
+    transition: var(--transition);
+}
+.content{
+    height: auto;
+    min-height: 20vh;
+    margin-top: 1em;
+}
+
+.actusDIV{
+    height: auto;
+    min-height: 10vh;
+    width: 70%;
+    border-radius: var(--borderR);
+    row-gap: 1em;
+    border: 2px solid grey;
+    z-index: 2;
+    padding: 1em;
+    background: var(--w);
+    display: grid;
+    justify-items: start;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto 1fr;
+}
+
+
+.actusDIVALL{
+    /*height: auto;*/
+    /*min-height: 10vh;*/
+    width: 100%;
+    margin-bottom: 1em;
+    padding: .5em 0;
+    display: flex;
+    position: relative;
+}
+
+.actusDIVParadelete,.actusDIVParalink{
+    width: 3vw;
+    min-width: 35px;
+    height: 3vw;
+    min-height: 35px;
+    border-radius: 50px;
+    background: var(--w);
+    opacity: 0;
+    cursor: pointer;
+    display: flex;
+}
+.clickable{
+    margin: auto;
+}
+.divPARA_IMG,.upArrow, .divClassTitle_IMG{
+    width: 30px;
+    height: auto;
+    margin: auto;
+}
+.upArrow{
+    width: 25px;
+}
+.actusDIVParadelete{
+    margin: auto auto auto 1em;
+}
+.actusDIVParalink{
+    margin: auto 1em auto auto;
+}
+.actusDIVClass{
+    width: -webkit-fill-available;
+    min-width: 35px;
+    height: 3vw;
+    min-height: 35px;
+    border-radius: var(--borderR5);
+    background: var(--w);
+    opacity: 1;
+    display: flex;
+    margin: auto 1em auto auto;
+    align-items: center;
+    justify-content: center;
+    /*padding-left: 5px;*/
+    color: white;
+}
+
+.actusIMG{
+    width: 15vw;
+    height: auto;
+    /*grid-row: span 2;*/
+    margin: auto 1em auto auto;
+    border-radius: var(--borderR5);
+}
+.actusTitle{
+    font-size: 1.3em;
+    font-weight: bold;
+}
+.actusDescription{
+    font-size: 1em;
+    font-weight: inherit;
+    color: var(--b);
+    grid-column: span 2 ;
+}
+.actusDate{
+    color: var(--bl);
+    display: flex;
+    align-items: center;
+
+}
