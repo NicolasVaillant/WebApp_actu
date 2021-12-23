@@ -15,35 +15,24 @@ const key_a ="ArrayALL"
 
 const value = triActus(tabDate, "AZ"); // ZA
 
-const body = document.querySelector('body');
 const header = document.querySelector('.header');
 const footer = document.querySelector('.footer');
-const tri = document.querySelector('.tri');
-const lineAdvancement = document.querySelector('.lineAdvancement');
-const circleAdvancement = document.querySelector('.circleAdvancement');
 const content = document.querySelector('.content');
 const LastMaj = document.querySelector('.LastMaj');
 const refreshActus = document.querySelector('.refreshActus');
 
 //--------------------------------------------------------------------------------------------
 
-window.onscroll = function(){
-    // circleAdvancement.style.transform =
-    //     "translateY(" +
-    //     (window.scrollY)/((document.body.scrollHeight - window.innerHeight)/lineAdvancement.offsetHeight)
-    //     + "px)";
-}
-
 window.onload = function (){
-    loadActus();
-    initialFlux();
+    loadActus(setLS);
+    // initialFlux();
 }
 
 //--------------------------------------------------------------------------------------------
 
 const dateNow = new Date();
 
-function loadActus(){
+function loadActus(callback){
     refreshActus.classList.add('spin');
 
     const nghttp = new XMLHttpRequest();
@@ -83,7 +72,7 @@ function loadActus(){
                 const options = { month: 'long'};
                 const month = new Intl.DateTimeFormat('fr-FR', options).format(dateRefresh);
 
-                let d = dateRefresh.getDay();
+                let d = dateRefresh.getDate();
                 if (d < 10) {
                     d = "0" + d
                 }
@@ -99,7 +88,6 @@ function loadActus(){
 
                 LastMaj.innerHTML = d + " " + month + " " + year + ", à " + h + ":" + m;
 
-
                 return {
                     ARRAY_UNE: AR_UNE,
                     ARRAY_MONDE: AR_MONDE,
@@ -107,32 +95,44 @@ function loadActus(){
                 };
             }
             localStorage.setItem(key_a, JSON.stringify(splitThemes(str)));
+            callback();
         }
         else {}
     };
-    nghttp.open("GET", "https://nicolasvaillant.net/local/prive/load/getXML.php", true);
+    nghttp.open("GET", "https://stuff.nicolasvaillant.net/local/prive/load/getXML.php", true);
     nghttp.send();
 }
 
+let ACTUS_LOCALSTORAGE, ARRAY_UNE_SORT, ARRAY_MONDE_SORT, ARRAY_SCIENCES_SORT;
+ARRAY_ACTUS_LOCALSTORAGE = [];
+ARRAY_ACTUS_MONDE = [];
+ARRAY_ACTUS_UNE = [];
+ARRAY_ACTUS_SCIENCES = [];
 
+function setLS(){
+    ACTUS_LOCALSTORAGE = JSON.parse(localStorage.getItem(key_a));
 
-const ACTUS_LOCALSTORAGE = JSON.parse(localStorage.getItem(key_a));
+    ARRAY_ACTUS_LOCALSTORAGE.push(ACTUS_LOCALSTORAGE);
 
-const ARRAY_ACTUS_LOCALSTORAGE = [];
-const ARRAY_ACTUS_MONDE = [];
+    ARRAY_UNE_SORT = ARRAY_ACTUS_LOCALSTORAGE[0].ARRAY_UNE[2];
+    ARRAY_MONDE_SORT = ARRAY_ACTUS_LOCALSTORAGE[0].ARRAY_MONDE[2];
+    ARRAY_SCIENCES_SORT = ARRAY_ACTUS_LOCALSTORAGE[0].ARRAY_SCIENCES[2];
 
-ARRAY_ACTUS_LOCALSTORAGE.push(ACTUS_LOCALSTORAGE);
+    // console.log(ARRAY_UNE_SORT.sort())
 
-const ARRAY_UNE_SORT = ARRAY_ACTUS_LOCALSTORAGE[0].ARRAY_UNE[2];
-const ARRAY_MONDE_SORT = ARRAY_ACTUS_LOCALSTORAGE[0].ARRAY_MONDE[2];
-const ARRAY_SCIENCES_SORT = ARRAY_ACTUS_LOCALSTORAGE[0].ARRAY_SCIENCES[2];
+    for(let i = 0 ; i < ARRAY_UNE_SORT.length ; i ++){
+        ARRAY_ACTUS_UNE.push(ARRAY_UNE_SORT[i][1]);
+    }
+    for(let i = 0 ; i < ARRAY_MONDE_SORT.length ; i ++){
+        ARRAY_ACTUS_MONDE.push(ARRAY_MONDE_SORT[i][1]);
+    }
+    for(let i = 0 ; i < ARRAY_SCIENCES_SORT.length ; i ++){
+        ARRAY_ACTUS_SCIENCES.push(ARRAY_SCIENCES_SORT[i][1]);
+    }
 
-
-for(let i = 0 ; i < ARRAY_MONDE_SORT.length ; i ++){
-    ARRAY_ACTUS_MONDE.push(ARRAY_MONDE_SORT[i][1]);
+    initialFlux()
 }
-console.log(ARRAY_ACTUS_MONDE)
-console.log(ARRAY_ACTUS_MONDE.sort().reverse())
+
 
 function initialFlux(){
 
@@ -160,21 +160,8 @@ function setActus(maj, categories, tableau) {
     for (let i = 0; i < numberActus; i++) {
         const content = document.querySelector('.content');
 
-
-        //Content
         const divALL = document.createElement("div");
         divALL.classList.add('actusDIVALL');
-
-
-        //DELETE
-        const divPARDelete = document.createElement("div");
-        divPARDelete.classList.add('actusDIVParadelete');
-        const divPARDelete_IMG = document.createElement("img");
-        divPARDelete_IMG.classList.add('divPARA_IMG');
-
-        divPARDelete_IMG.src = "icon/trash_grey.png";
-        divPARDelete.appendChild(divPARDelete_IMG);
-
 
         //CATEGORIES
         const divClass = document.createElement("div");
@@ -184,57 +171,37 @@ function setActus(maj, categories, tableau) {
         divClassTitle_IMG.classList.add('divClassTitle_IMG');
 
         if (categories === "une") {
-            divClass.style.background = "var(--bl)";
-            divClassTitle.innerHTML = "La Une";
+            divClass.style.background = "var(--blue)";
+            divClass.setAttribute('data-class', "La Une");
             divClassTitle_IMG.src = "icon/fr.png";
         } else if (categories === "monde") {
             divClass.style.background = "#ec6b83";
-            divClassTitle.innerHTML = "International";
+            divClass.setAttribute('data-class', "International");
             divClassTitle_IMG.src = "icon/world.png";
         } else {
             divClass.style.background = "#6fec6b";
-            divClassTitle.innerHTML = "Sciences";
+            divClass.setAttribute('data-class', "Sciences");
             divClassTitle_IMG.src = "icon/physic.png";
         }
         // divClass.appendChild(divClassTitle_IMG);
         divClass.appendChild(divClassTitle);
 
+        const ul_collapsible = document.createElement("ul");
+        const li_collapsible = document.createElement("li");
+        const header_collapsible = document.createElement("div");
+        const content_collapsible = document.createElement("div");
+        const imgContainer = document.createElement("div");
+        const contentContainer = document.createElement("div");
+        ul_collapsible.classList.add('actusDIV');
+        ul_collapsible.classList.add('collapsible');
+        header_collapsible.classList.add('collapsible-header');
+        content_collapsible.classList.add('collapsible-body');
+        imgContainer.classList.add('imgContainer');
+        contentContainer.classList.add('contentContainer');
 
-        //LINK
-        const divPARAlink = document.createElement("div");
-        divPARAlink.classList.add('actusDIVParalink');
-        const divPARAlink_IMG = document.createElement("img");
-        divPARAlink_IMG.classList.add('divPARA_IMG');
-        divPARAlink_IMG.src = "icon/link_grey.png";
-        const divPARAlink_A = document.createElement("a");
-        divPARAlink_A.appendChild(divPARAlink_IMG);
-        divPARAlink_A.style.margin = "auto";
-        divPARAlink.appendChild(divPARAlink_A);
-
-
-        const div = document.createElement("div");
-        div.classList.add('actusDIV');
-
-        const divUnder = document.createElement("div");
-        divUnder.classList.add('actusDIVUnder');
-
-        const gapRow = document.createElement("div");
-        gapRow.classList.add('gapRow');
-
-
-        divALL.addEventListener("mouseenter", function () {
-            setParameters(this, tableau, i)
-        });
-        divALL.addEventListener("mouseleave", function () {
-            unsetParameters(this)
-        });
-
-
-        //Picture
         const img = document.createElement("img");
         img.classList.add('actusIMG');
         img.src = tableau[i][4];
-
 
         //DATE ACTUS
         const date = document.createElement("p");
@@ -259,7 +226,6 @@ function setActus(maj, categories, tableau) {
 
         arrayHourToSort = [];
         arrayDateToSort = [];
-        let herPluralSing;
 
         arrayDateToSort.push(tableau[i][1].split("2021 ")[0].split(", ")[1].substring(0, 2));
         arrayDateToSort.push(d);
@@ -278,7 +244,7 @@ function setActus(maj, categories, tableau) {
                 date.innerHTML = tableau[i][1].split("+")[0] + " • " + " il y a " + diffTime + " heures";
             }
 
-        } else {
+        }else{
             diffTime = Math.abs(parseInt(arrayHourToSort[1]) - parseInt(arrayHourToSort[0]));
 
             if (diffTime < 1){
@@ -293,31 +259,56 @@ function setActus(maj, categories, tableau) {
         }
 
 
-        //Title
         const title = document.createElement("p");
         title.classList.add('actusTitle');
         title.innerHTML = tableau[i][0]
 
-
-        //Description
+        const content_collapsibleContainer = document.createElement("div");
+        content_collapsibleContainer.classList.add('content_collapsibleContainer');
         const description = document.createElement("p");
         description.classList.add('actusDescription');
+        const asset = document.createElement("div");
+        asset.classList.add('asset');
+        const i_link = document.createElement("i");
+        const a_i_link = document.createElement("a");
+        const i_bin = document.createElement("i");
+        i_link.classList.add('fas');
+        i_link.classList.add('fa-external-link-square-alt');
+        i_bin.classList.add('fas');
+        i_bin.classList.add('fa-trash-alt');
+        a_i_link.appendChild(i_link)
+        asset.appendChild(a_i_link);
+        asset.appendChild(i_bin);
+
+        i_bin.onclick = function (){removeAll(this)};
+        a_i_link.href = tableau[i][3];
+        a_i_link.target = "_blank";
+
         description.innerHTML = tableau[i][2]
 
+        header_collapsible.onclick = function(){collapsibleEvent(this)};
 
-        div.appendChild(divClass);
-        div.appendChild(date);
-        div.appendChild(img);
-        div.appendChild(title);
-        div.appendChild(description);
+        imgContainer.appendChild(img);
+        imgContainer.appendChild(divClass);
+        header_collapsible.appendChild(imgContainer);
 
-        divALL.appendChild(divPARAlink);
-        divALL.appendChild(div);
-        divALL.appendChild(divPARDelete);
+        contentContainer.appendChild(date);
+        contentContainer.appendChild(title);
+        header_collapsible.appendChild(contentContainer);
+
+        content_collapsibleContainer.appendChild(description);
+        content_collapsibleContainer.appendChild(asset);
+        content_collapsible.appendChild(content_collapsibleContainer);
+
+        li_collapsible.appendChild(header_collapsible);
+        li_collapsible.appendChild(content_collapsible);
+        ul_collapsible.appendChild(li_collapsible);
+
+        divALL.appendChild(ul_collapsible);
 
 
-        const Date = divALL.children[1].children[1].textContent.split(",")[1];
-        tabDate.push(Date);
+        // const Date = divALL.children[0].children[1].textContent.split(",")[1];
+        // tabDate.push(Date);
 
         // div.style.height = 3*(divClass.offsetHeight + img.offsetHeight + 70) + " px";
 
@@ -329,28 +320,23 @@ function setActus(maj, categories, tableau) {
     // setActusAnchors(numberActus);
 }
 
+function removeAll(div){div.closest('.actusDIVALL').remove()}
+
+function collapsibleEvent(div){
+    div.classList.add('showNews');
+
+    if(div.parentElement.classList.contains('active')){
+        div.classList.remove('showNews');
+    }else{
+        div.classList.add('showNews');
+    }
+
+    // noinspection JSUnresolvedFunction
+    $('.collapsible').collapsible();
+}
 
 function scrollIntoViewTOP(){
     window.scrollTo(0,0);
-}
-
-function setParameters(index,tableau, num) {
-    index.style.background = "var(--hoverDIV)";
-    index.children[0].style.opacity = "1";
-
-    index.children[2].style.opacity = "1";
-    index.children[2].onclick = function(){index.remove()};
-
-    index.children[0].onclick = function(){
-        index.children[0].children[0].href = tableau[num][3];
-        index.children[0].children[0].target = "_blank";
-    };
-}
-
-function unsetParameters(index) {
-    index.style.background = "var(--w)";
-    index.children[0].style.opacity = "0";
-    index.children[2].style.opacity = "0";
 }
 
 function triActus(tabDateIN, order){
@@ -361,39 +347,15 @@ function triActus(tabDateIN, order){
     }
 }
 
-function setActusAnchors(numberActus){
-
-    const divideBy = lineAdvancement.offsetHeight/(numberActus - 1);
-
-    function redirectAnchors(circle, newCircleAnchorsElement) {
-        //circle_0 >> element_0
-        circle.style.transform = "scale(2)"
-        const elements = document.querySelector('#element_' + newCircleAnchorsElement)
-        elements.scrollIntoView(true); //TOP OF SCREEN
-    }
-
-    for(let i = 0; i < numberActus ; i++){
-        const newCircleAnchors = document.createElement("div");
-        newCircleAnchors.classList.add('newCircleAnchors');
-
-        newCircleAnchors.style.top = i * divideBy;
-        newCircleAnchors.id = "circle_" + i;
-
-        lineAdvancement.appendChild(newCircleAnchors);
-        newCircleAnchors.onclick = function(){redirectAnchors(this,this.id.split("_")[1])};
-    }
-}
-
 if (document.querySelector('input[name="radio"]')) {
     document.querySelectorAll('input[name="radio"]').forEach((elem) => {
         elem.addEventListener("change", function(event) {
-            console.log(event.target.value)
+            // console.log(event.target.value)
         });
     });
 }
 
 function changeFlux(button){
-
     if(button.id === "flux_une"){
         showOnly("La Une");
         setActus(ACTUS_LOCALSTORAGE.ARRAY_UNE[0], ACTUS_LOCALSTORAGE.ARRAY_UNE[1], ACTUS_LOCALSTORAGE.ARRAY_UNE[2]);
@@ -409,13 +371,12 @@ function changeFlux(button){
     else{}
 }
 
-
 function showOnly(item){
 
     const divALL = document.querySelectorAll('.actusDIVALL')
 
     divALL.forEach(function(divRes){
-        let divP = divRes.children[1].children[0].children[0];
+        let divP = divRes.children[0].children[0].children[0].children[0].children[1];
         if(divP.innerText === item){
             divRes.style.display = "flex";
         }

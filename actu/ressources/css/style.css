@@ -1,37 +1,16 @@
-*, ::before, ::after{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Rubik', sans-serif;
-    user-select: none;
-    transition: set_content 1s;
-}
+@charset "utf-8";
+
 .spin{
     transform: rotate(180deg)!important;
-    transition: var(--transition);
+    transition: var(--transition1);
 }
 html{
     scroll-behavior: smooth;
 }
-:root {
-    --w: #ffffff;
-    --b:#2B2B2BFF;
-    --bl: #3fd0d5;
-    --hoverDIV: #f3f3f3;
-
-    --borderR : 15px;
-    --borderR5 : 5px;
-
-    --transition : all .5s!important;
-}
-/*::-webkit-scrollbar {*/
-/*    width: 1em;*/
-/*    background: red;*/
-/*}*/
 
 .container{
     height: auto;
-    border-radius: var(--borderR);
+    border-radius: var(--border1);
     margin: 2em auto;
     overflow-x: hidden;
 }
@@ -72,7 +51,7 @@ aside{
     border: 2px solid grey;
     background: var(--w);
     transform: scale(1);
-    transition: var(--transition);
+    transition: var(--transition1);
     cursor: pointer;
 }
 .refreshActus{
@@ -83,12 +62,12 @@ aside{
     border-radius: 50px;
     padding: .8em;
     transform: rotate(0deg);
-    transition: var(--transition);
+    transition: var(--transition1);
 }
 
 .refreshActus:hover{
-    background: var(--hoverDIV);
-    transition: var(--transition);
+    background: var(--w_op);
+    transition: var(--transition1);
 }
 .iconRefreshActus{
     width: 25px;
@@ -112,13 +91,14 @@ input{
 }
 .tri{
     display: grid;
+    height: 10vh;
     grid-template-columns: 70% auto;
 }
 
 .triSelect,.flux{
     display: flex;
     background: var(--w);
-    transition: var(--transition);
+    transition: var(--transition1);
     border-radius: 50px;
     align-content: center;
     gap: 5px;
@@ -127,7 +107,11 @@ input{
 .triSelect{
     position: absolute;
     right: 0;
+    padding: 0 0 0 15px;
     z-index: 10;
+    opacity: .5;
+    height: 10vh;
+    cursor: not-allowed;
 }
 .flux{
     gap: .8em;
@@ -135,7 +119,7 @@ input{
 }
 .contentFlux{
     font-size: 1.2em;
-    background: var(--hoverDIV);
+    background: var(--w_op);
     padding: 1em;
     border-radius: 50px;
     border: 2px solid transparent;
@@ -145,13 +129,13 @@ input{
     justify-content: center;
     align-content: center;
     gap: .5em;
-    transition: var(--transition);
+    transition: var(--transition1);
 }
 input[name="radio"]:checked+.contentFlux{
-    border: 2px solid var(--bl);
+    border: 2px solid var(--blue);
 }
 .contentFlux:hover{
-    border: 2px solid var(--bl);
+    border: 2px solid var(--blue);
 }
 
 .iconFlux{
@@ -165,31 +149,31 @@ input[name="radio"]:checked+.contentFlux{
 .triSort{
     background: var(--w);
     width: 60px;
-    height: auto;
-    cursor: pointer;
+    /*cursor: pointer;*/
     border-radius: 50px;
     padding: .8em;
-    transition: var(--transition);
+    transition: var(--transition1);
     margin: auto;
+    cursor: not-allowed;
 }
 .triSort:hover{
-     background: var(--hoverDIV);
-     transition: var(--transition);
+     background: var(--w_op);
+     transition: var(--transition1);
  }
 .nameActus{
     font-size: 1.2em;
     background: var(--w);
     padding: 1em;
     border-radius: 50px;
-    transition: var(--transition);
+    transition: var(--transition1);
 }
 .nameActus:hover{
-    background: var(--hoverDIV);
-    transition: var(--transition);
+    background: var(--w_op);
+    transition: var(--transition1);
 }
 .nameActus a{
     text-decoration: none;
-    color: var(--bl);
+    color: var(--blue);
 }
 .nameActus a:visited{
     text-decoration: none;
@@ -209,17 +193,17 @@ input[name="radio"]:checked+.contentFlux{
     gap: 5px;
     align-items: center;
     cursor: pointer;
-    transition: var(--transition);
+    transition: var(--transition1);
 }
 .MajContent{
     cursor: auto;
 }
 .LastMaj{
-    color: var(--bl);
+    color: var(--blue);
 }
 .fromBottomToTop:hover{
-    background: var(--hoverDIV);
-    transition: var(--transition);
+    background: var(--w_op);
+    transition: var(--transition1);
 }
 .content{
     height: auto;
@@ -229,28 +213,21 @@ input[name="radio"]:checked+.contentFlux{
 
 .actusDIV{
     height: auto;
-    min-height: 10vh;
     width: 70%;
-    border-radius: var(--borderR);
-    row-gap: 1em;
-    border: 2px solid grey;
+    border-radius: var(--border1);
     z-index: 2;
     padding: 1em;
     background: var(--w);
-    display: grid;
-    justify-items: start;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto auto 1fr;
 }
 
 
 .actusDIVALL{
-    /*height: auto;*/
-    /*min-height: 10vh;*/
     width: 100%;
-    margin-bottom: 1em;
     padding: .5em 0;
     display: flex;
+    /*opacity: .3;*/
+    align-items: center;
+    justify-content: center;
     position: relative;
 }
 
@@ -283,41 +260,142 @@ input[name="radio"]:checked+.contentFlux{
     margin: auto 1em auto auto;
 }
 .actusDIVClass{
-    width: -webkit-fill-available;
     min-width: 35px;
-    height: 3vw;
     min-height: 35px;
-    border-radius: var(--borderR5);
     background: var(--w);
+    position: absolute;
+    width: 2vw;
+    height: 2vw;
+    border-radius: var(--border4);
+    top: 0;
+    right: 0;
     opacity: 1;
     display: flex;
-    margin: auto 1em auto auto;
-    align-items: center;
-    justify-content: center;
-    /*padding-left: 5px;*/
-    color: white;
 }
-
+.imgContainer{position: relative}
 .actusIMG{
-    width: 15vw;
-    height: auto;
-    /*grid-row: span 2;*/
-    margin: auto 1em auto auto;
-    border-radius: var(--borderR5);
+    width: 8vw;
+    height: 8vw;
+    border: 2px solid var(--w_op);
+    object-fit: cover;
+    border-radius: var(--border4);
 }
 .actusTitle{
-    font-size: 1.3em;
+    font-size: var(--font1);
+    color: var(--b_sec);
     font-weight: bold;
+}
+.content_collapsibleContainer{
+    display: flex;
+}
+.content_collapsibleContainer .asset{
+    width: 20%;
+    display: flex;
+    align-items: center;
+    /*gap: var(--gap2);*/
+    justify-content: flex-end;
+}
+.content_collapsibleContainer .asset a{
+    text-decoration: none;
+    color: inherit;
+}
+.content_collapsibleContainer .asset i{
+    font-size: var(--font1_2);
+    padding: var(--padd2);
+    cursor: pointer;
+    color: var(--b) !important;
+    transition: var(--transition3);
+    border-radius: var(--border4);
+}
+.content_collapsibleContainer .asset i:hover{
+    background: var(--w);
+    transition: var(--transition3);
 }
 .actusDescription{
     font-size: 1em;
     font-weight: inherit;
     color: var(--b);
+    width: 80%;
     grid-column: span 2 ;
 }
 .actusDate{
-    color: var(--bl);
+    color: var(--blue);
     display: flex;
     align-items: center;
+    font-size: var(--font_tooltip);
+}
 
+.collapsible{padding:0}
+.collapsible li{list-style: none}
+
+.collapsible-header{
+    display: -webkit-box;
+    height: auto;
+    font-size: 1.1em;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    padding: 1rem;
+    gap: var(--gap2);
+    align-items: center;
+    display: flex;
+    border: 2px solid grey;
+    margin: 0 0 1em 0;
+    align-content: center;
+    -webkit-align-content: center;
+    grid-auto-flow: column;
+    -moz-transition: var(--transition1);
+    -webkit-transition: var(--transition1);
+    list-style-type: none;
+    color: var(--td_color_grey);
+    border-radius: var(--border1);
+    transition: 0.2s;
+    word-break: break-word;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    z-index: 5;
+}
+
+
+.collapsible li{margin: 0!important;}
+
+.collapsible-body {
+    display: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    text-align: justify;
+    margin: 0;
+    border: 2px solid grey;
+    padding: var(--padd1);
+    background: var(--w_op);
+    border-radius:var(--border1);
+    -webkit-border-radius:var(--border1);
+    -moz-border-radius:var(--border1);
+
+}
+.collapsible_div_bodyContent{
+    gap: .5em;
+    background: var(--w);
+    display: flex;
+    flex-direction: column;
+    /*border: 2px dashed var(--grey2)!important;*/
+    border: 1px solid var(--grey2)!important;
+    border-radius: var(--border1);
+}
+.collapsible-body span:hover::before {
+    transform: scaleX(0);
+    transform-origin: bottom left;
+
+    -webkit-transform: scale(0);
+    -webkit-transform-origin: bottom left;
+
+    -moz-transform: scale(0);
+    -moz-transform-origin: bottom left;
+}
+.showNews{
+    border: 2px solid var(--b);
 }
