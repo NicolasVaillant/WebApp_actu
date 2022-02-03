@@ -1,0 +1,88 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="js/script.js" defer></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/root.css">
+    
+    <title>News</title>
+    
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Actualités</h1>
+        <button class="refreshActus" onclick="loadActus(setLS)">
+            <img src="icon/refresh.png" class="iconRefreshActus" alt="refresh"/>
+        </button>
+        <p class="nameActus">
+            <a href="https://www.lemonde.fr/actualite-medias/article/2019/08/12/les-flux-rss-du-monde-fr_5498778_3236.html"
+               target="_blank">Le Monde • Flux RSS</a>
+        </p>
+        <div class="MajContent">
+            <p>Mise à jour le </p>
+            <p class="LastMaj"> 1 janvier 2021 à 0h00</p>
+        </div>
+    </div>
+    <div class="tri">
+        <div class="flux">
+
+            <div id="flux_une" onclick="changeFlux(this)">
+                <input type="radio" id="une" name="radio" value="une"
+                       checked>
+                <label class="contentFlux" for="une"> La Une
+                    <img src="icon/fr.png" class="iconFlux" alt="france"/>
+                </label>
+            </div>
+
+            <div id="flux_monde" onclick="changeFlux(this)">
+                <input type="radio" id="monde" name="radio" value="monde">
+                <label class="contentFlux" for="monde"> International
+                    <img src="icon/world.png" class="iconFlux" alt="monde"/>
+                </label>
+            </div>
+
+            <div id="flux_sciences" onclick="changeFlux(this)">
+                <input type="radio" id="sciences" name="radio" value="sciences">
+                <label class="contentFlux" for="sciences"> Sciences
+                    <img src="icon/physic.png" class="iconFlux" alt="sciences"/>
+                </label>
+            </div>
+
+        </div>
+        <div class="triSelect">
+            <p>Sélectionner l'ordre</p>
+            <img class="triSort" src="icon/sort.png" alt="sort"/>
+            <img class="triSort" src="icon/reverse_sort.png" alt="reverse_sort"/>
+        </div>
+    </div>
+    
+    <div class="content"></div>
+    
+    <div class="footer">
+        <p>Actualités • Utilisation personnelle</p>
+        <div class="fromBottomToTop" onclick="scrollIntoViewTOP()">
+            <p>Remonter</p>
+            <div class="clickable">
+                <img class="upArrow" src="icon/up.png" alt="up"/></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
