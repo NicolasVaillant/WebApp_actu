@@ -13,6 +13,7 @@
 :root {
     --w: #fff;
     --w_op: #F3F3F3;
+    --w_op_2: #ffffff7a;
     --b: #2a2e35;
     /*--b_sec:#2c2a28de;*/
     --b_sec:#2c2a28de;
@@ -23,6 +24,7 @@
     --li_sub : #4e4d4d;
 
     --blue: #3FD0D5;
+    --purple: #a23fd5;
 
     --grey_p:#655f68;
 

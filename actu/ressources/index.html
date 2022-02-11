@@ -11,14 +11,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="fontawesome/css/all.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <script src="js/toastify-js-master/src/toastify.js"></script>
+    <link rel="stylesheet" href="js/toastify-js-master/src/toastify.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="js/script.js" defer></script>
     
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/root.css">
+    <link rel="stylesheet" href="css/responsive.css">
     
     <title>News</title>
     
@@ -26,54 +31,100 @@
 <body>
 
 <div class="container">
-    <div class="header">
-        <h1>Actualités</h1>
-        <button class="refreshActus" onclick="loadActus(setLS)">
-            <img src="icon/refresh.png" class="iconRefreshActus" alt="refresh"/>
-        </button>
-        <p class="nameActus">
-            <a href="https://www.lemonde.fr/actualite-medias/article/2019/08/12/les-flux-rss-du-monde-fr_5498778_3236.html"
-               target="_blank">Le Monde • Flux RSS</a>
-        </p>
-        <div class="MajContent">
-            <p>Mise à jour le </p>
-            <p class="LastMaj"> 1 janvier 2021 à 0h00</p>
+    <div class="topBarContainer">
+        <div class="header">
+            <div class="header_label">
+                <h1>Actualités</h1>
+                <button class="refreshActus" onclick="loadActus(setLS)">
+                    <img src="icon/refresh.png" class="iconRefreshActus" alt="refresh"/>
+                </button>
+                <p class="nameActus">
+                    <a href="https://www.lemonde.fr/actualite-medias/article/2019/08/12/les-flux-rss-du-monde-fr_5498778_3236.html"
+                       target="_blank">Le Monde • Flux RSS</a>
+                </p>
+            </div>
+            <div class="MajContent">
+                <p>Mise à jour le </p>
+                <p class="LastMaj"> 1 janvier 2021 à 0h00</p>
+            </div>
         </div>
-    </div>
-    <div class="tri">
-        <div class="flux">
-
-            <div id="flux_une" onclick="changeFlux(this)">
-                <input type="radio" id="une" name="radio" value="une"
-                       checked>
-                <label class="contentFlux" for="une"> La Une
-                    <img src="icon/fr.png" class="iconFlux" alt="france"/>
-                </label>
+        <div class="tri">
+            <div class="flux">
+            
+                <div id="flux_une" onclick="changeFlux(this)">
+                    <input type="radio" id="une" name="radio" value="une"
+                           checked>
+                    <label class="contentFlux" for="une"> La Une
+                        <img src="icon/fr.png" class="iconFlux" alt="france"/>
+                    </label>
+                </div>
+            
+                <div id="flux_monde" onclick="changeFlux(this)">
+                    <input type="radio" id="monde" name="radio" value="monde">
+                    <label class="contentFlux" for="monde"> International
+                        <img src="icon/world.png" class="iconFlux" alt="monde"/>
+                    </label>
+                </div>
+            
+                <div id="flux_sciences" onclick="changeFlux(this)">
+                    <input type="radio" id="sciences" name="radio" value="sciences">
+                    <label class="contentFlux" for="sciences"> Sciences
+                        <img src="icon/physic.png" class="iconFlux" alt="sciences"/>
+                    </label>
+                </div>
+        
             </div>
-
-            <div id="flux_monde" onclick="changeFlux(this)">
-                <input type="radio" id="monde" name="radio" value="monde">
-                <label class="contentFlux" for="monde"> International
-                    <img src="icon/world.png" class="iconFlux" alt="monde"/>
-                </label>
-            </div>
-
-            <div id="flux_sciences" onclick="changeFlux(this)">
-                <input type="radio" id="sciences" name="radio" value="sciences">
-                <label class="contentFlux" for="sciences"> Sciences
-                    <img src="icon/physic.png" class="iconFlux" alt="sciences"/>
-                </label>
-            </div>
-
-        </div>
-        <div class="triSelect">
-            <p>Sélectionner l'ordre</p>
-            <img class="triSort" src="icon/sort.png" alt="sort"/>
-            <img class="triSort" src="icon/reverse_sort.png" alt="reverse_sort"/>
+            <!--        <div class="triSelect">-->
+            <!--            <p>Sélectionner l'ordre</p>-->
+            <!--            <img class="triSort" src="icon/sort.png" alt="sort"/>-->
+            <!--            <img class="triSort" src="icon/reverse_sort.png" alt="reverse_sort"/>-->
+            <!--        </div>-->
         </div>
     </div>
     
-    <div class="content"></div>
+    
+    <div class="content">
+        <ul class="collapsible allContentContainer">
+            <li class="active">
+                <div class="collapsible-header no-style allNews" onclick="collapsibleEvent(this, 'filter')">
+                    <div class="header_selector">
+                        <p>Dernières actualités</p>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="collapsible-body no-style">
+                    <div class="filter flux">
+                        <div class="icon-u-read" id="r">
+                            <input type="checkbox" id="filter_r" name="filter" value="filter_r">
+                            <label class="textCheckbox" for="filter_r">
+                                Afficher uniquement les actualités non-lues
+                            </label>
+                        </div>
+                    </div>
+                    <div class="news_container news-u-r"></div>
+                    <div class="news-no-content n-u-r">
+                        <p>Erreur de chargement des actualités <i class="fas fa-exclamation-circle"></i></p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="collapsible allContentContainer">
+            <li class="">
+                <div class="collapsible-header no-style selectedNews" onclick="collapsibleEvent(this, 'filter')">
+                    <div class="header_selector">
+                        <p>Déjà lues</p>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="collapsible-body no-style">
+                    <div class="news_container news-r"></div>
+                    <div class="news-no-content n-r">
+                        <p>Aucune news à afficher <i class="fas fa-exclamation-circle"></i></p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
     
     <div class="footer">
         <p>Actualités • Utilisation personnelle</p>
