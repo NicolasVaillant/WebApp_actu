@@ -1,0 +1,117 @@
+@charset "utf-8";
+
+@media screen and (max-width: 1100px) {
+    .topBarContainer{
+        width: 100%;
+        margin: 0;
+    }
+    .header_selector,
+    .news_container,
+    .filter,
+    .news-no-content,
+    .footer{
+        width: 90%;
+    }
+    .header,
+    .footer,
+    .tri{
+        font-size: var(--font_tooltip);
+    }
+    .header,
+    .tri{
+        width: 90%;
+        margin: auto;
+        padding: 2em 0;
+        height: auto;
+    }
+    .tri{padding: 0 0 2em 0;}
+    .topBarContainer{padding: 0}
+}
+@media screen and (max-width: 850px) {
+    .actusDivClass{
+        top: -.5vw;
+        right: -.5vw;
+        min-width: 25px;
+        min-height: 25px;
+    }
+    .actusDivAll{padding: .5em 0 0}
+    .actusTitle{
+        font-size: var(--font_tooltip);
+        color: var(--b_sec);
+        font-weight: bold;
+        line-height: 1.5em;
+        height: 3em;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    .collapsible-header{
+        gap: 1em;
+        margin: 0 0 .5em auto;
+    }
+    .filter{margin: 1em auto .5em auto;}
+    .content_collapsibleContainer{flex-direction: column}
+    .actusDescription{width: 100%}
+    .content_collapsibleContainer .asset{width: 100%}
+    .content_collapsibleContainer .asset i{font-size: var(--font1)}
+    .link_article{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .actusIMG{
+        min-width: 50px;
+        min-height: 50px;
+    }
+    .actusDate{font-size: 14px}
+    .header{
+        /*flex-direction: column;*/
+        justify-content: space-between;
+        height: auto;
+        gap: 0;
+    }
+    .header,
+    .tri{
+        width: 90%;
+        margin: auto;
+        padding: 2em 0;
+        height: auto;
+    }
+    .tri{padding: 0 0 2em 0;}
+    .MajContent{
+        position: relative;
+        padding: 1em 0;
+    }
+    .topBarContainer{padding: 0}
+}
+@media screen and (max-width: 700px) {
+    .header{flex-direction: column}
+}
+@media screen and (max-width: 600px) {
+    .toastify-right{
+        margin-left: 15px;
+        margin-right: 15px;
+        left: 0;
+        right: 0;
+        max-width: fit-content;
+    }
+    .header{
+        align-items: flex-start;
+    }
+    .header_label{
+        justify-content: space-between;
+        width: 100%;
+    }
+    .flux{flex-direction: column}
+    #flux_une,
+    #flux_monde,
+    #flux_sciences{
+        width: 100%;
+    }
+    .filter{
+        width: 90%;
+        display: flex;
+        align-items: flex-start;
+    }
+}
