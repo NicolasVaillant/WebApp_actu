@@ -13,6 +13,7 @@
 :root {
     --w: #fff;
     --w_op: #F3F3F3;
+    --w_op_2: #ffffff7a;
     --b: #2a2e35;
     /*--b_sec:#2c2a28de;*/
     --b_sec:#2c2a28de;
@@ -44,6 +45,9 @@
     --red_bg:#a36c7c2b;
     --green : #F9F871;
     --green_bg:#a9a86b3d ;
+
+    --hover:#e4eded;
+    --active:#b4d5d5;
 
     /*--------------------------------*/
     --td_bg_container:#fff;
@@ -96,6 +100,7 @@
 
     --padd1: 1em;
     --padd2: .5em;
+    --padd3: 1.5em;
 
     --transition1b : all 1.5s!important;
     --transition1 : all 1s!important;

@@ -1,0 +1,277 @@
+@charset "utf-8";
+
+/**************************\
+  Basic Modal Styles
+\**************************/
+
+.modal {
+    font-family: -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+}
+
+.modal__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal__container {
+    background-color: #fff;
+    padding: 30px;
+    max-width: 600px;
+    max-height: 100vh;
+    border-radius: 4px;
+    /*overflow-y: auto;*/
+    box-sizing: border-box;
+    width: 60vw;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal__title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.25;
+    color: var(--blue);
+    box-sizing: border-box;
+}
+
+.modal__close,
+.modal__close__i{
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+}
+.modal__close__i{
+    font-size: var(--font1);
+}
+
+.modal__header .modal__close:before { content: "\2715"; }
+
+.modal__content {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+    color: rgba(0,0,0,.8);
+    height: 100%;
+    flex-direction: column;
+}
+
+.modal__btn {
+    font-size: .875rem;
+    padding: .5rem 1rem;
+    background-color: #e6e6e6;
+    color: rgba(0,0,0,.8);
+    border-radius: .25rem;
+    border-style: none;
+    border-width: 0;
+    cursor: pointer;
+    -webkit-appearance: button;
+    text-transform: none;
+    overflow: visible;
+    line-height: 1.15;
+    margin: 0;
+    will-change: transform;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    transition: -webkit-transform .25s ease-out;
+    transition: transform .25s ease-out;
+    transition: transform .25s ease-out,-webkit-transform .25s ease-out;
+}
+
+.modal__btn:focus, .modal__btn:hover {
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
+.modal__btn-primary {
+    background-color: var(--blue);
+    color: #fff;
+}
+
+.modal__footer {
+    display: flex;
+    gap: 1em;
+}
+
+.inputModal {
+    outline: none;
+    width: 100%;
+    padding: var(--padd2);
+    border: 2px solid var(--w_op);
+    border-radius: var(--border1);
+}
+.inputModal:focus {
+    border: 2px solid var(--b_sec_o);
+}
+.modal__description{
+    margin: auto auto 0 auto;
+}
+
+/**************************\
+  Demo Animation Style
+\**************************/
+@keyframes mmfadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes mmfadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes mmslideIn {
+    from { transform: translateY(15%); }
+    to { transform: translateY(0); }
+}
+
+@keyframes mmslideOut {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10%); }
+}
+
+.micromodal-slide {
+    display: none;
+}
+
+.micromodal-slide.is-open {
+    display: block;
+}
+
+.micromodal-slide[aria-hidden="false"] .modal__overlay {
+    animation: mmfadeIn .3s cubic-bezier(0.0, 0.0, 0.2, 1);
+}
+
+.micromodal-slide[aria-hidden="false"] .modal__container {
+    animation: mmslideIn .3s cubic-bezier(0, 0, .2, 1);
+}
+
+.micromodal-slide[aria-hidden="true"] .modal__overlay {
+    animation: mmfadeOut .3s cubic-bezier(0.0, 0.0, 0.2, 1);
+}
+
+.micromodal-slide[aria-hidden="true"] .modal__container {
+    animation: mmslideOut .3s cubic-bezier(0, 0, .2, 1);
+}
+
+.micromodal-slide .modal__container,
+.micromodal-slide .modal__overlay {
+    will-change: transform;
+}
+
+.modal__tabs {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padd2);
+    gap: 1em;
+    border-radius: var(--border1) var(--border1) 0 0;
+}
+
+/* Style the buttons that are used to open the tab content */
+.modal__tabs button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    flex: 1;
+    border-radius: var(--border1);
+}
+
+/* Change background color of buttons on hover */
+.modal__tabs button:hover {
+    background-color: var(--hover);
+}
+
+/* Create an active/current tablink class */
+.modal__tabs button.active {
+    background-color: var(--active);
+}
+
+/* Style the tab content */
+.tab__content {
+    display: none;
+    gap: 1em;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    height: 30vh;
+    flex-direction: column;
+    border-radius: 0 0 var(--border1) var(--border1);
+}
+.default{
+    display: flex;
+}
+
+
+.modal__selector{
+    border-radius: var(--border1);
+    position: relative;
+    z-index: 1000;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.modal__selector_header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    padding: 0 0 var(--padd1) 0;
+}
+.modal__selector_content{
+    display: flex;
+    gap: 1em;
+    width: 100%;
+    flex-wrap: wrap;
+    /*justify-content: space-between;*/
+    align-items: center;
+    flex-direction: row;
+}
+.modal__selector_content p{
+    background: red;
+    padding: var(--padd2);
+}
+.modal__selector_content label{
+    background: var(--w);
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    padding: var(--padd2);
+    border-radius: var(--border1);
+    cursor: pointer;
+}
+.modal__selector_content input{display: none}
+
+.modal__selector_content label:hover{background: var(--hover)}
+
+.input__selector__checked{
+    background: var(--hover) !important;
+}

@@ -11,14 +11,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="fontawesome/css/all.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <script src="js/toastify-js-master/src/toastify.js"></script>
+    <link rel="stylesheet" href="js/toastify-js-master/src/toastify.css">
+    
+    <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="js/script.js" defer></script>
     
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/root.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/modal.css">
     
     <title>News</title>
     
@@ -26,54 +34,102 @@
 <body>
 
 <div class="container">
-    <div class="header">
-        <h1>Actualités</h1>
-        <button class="refreshActus" onclick="loadActus(setLS)">
-            <img src="icon/refresh.png" class="iconRefreshActus" alt="refresh"/>
-        </button>
-        <p class="nameActus">
-            <a href="https://www.lemonde.fr/actualite-medias/article/2019/08/12/les-flux-rss-du-monde-fr_5498778_3236.html"
-               target="_blank">Le Monde • Flux RSS</a>
-        </p>
-        <div class="MajContent">
-            <p>Mise à jour le </p>
-            <p class="LastMaj"> 1 janvier 2021 à 0h00</p>
+    <div class="topBarContainer">
+        <div class="header">
+            <div class="header_label">
+                <h1>Actualités</h1>
+                <button class="refreshActus" onclick="loadActus(setLS)">
+                    <img src="icon/refresh.png" class="iconRefreshActus" alt="refresh"/>
+                </button>
+                <p class="nameActus">
+                    <a href="https://www.lemonde.fr/actualite-medias/article/2019/08/12/les-flux-rss-du-monde-fr_5498778_3236.html"
+                       target="_blank">Le Monde • Flux RSS</a>
+                </p>
+            </div>
+            <div class="MajContent">
+                <p>Mise à jour le </p>
+                <p class="LastMaj"> 1 janvier 2021 à 0h00</p>
+            </div>
         </div>
-    </div>
-    <div class="tri">
-        <div class="flux">
-
-            <div id="flux_une" onclick="changeFlux(this)">
-                <input type="radio" id="une" name="radio" value="une"
-                       checked>
-                <label class="contentFlux" for="une"> La Une
-                    <img src="icon/fr.png" class="iconFlux" alt="france"/>
-                </label>
+        <div class="tri">
+            <div class="flux">
+            
+                <div id="flux_une" class="expand_flex" onclick="changeFlux(this);">
+                    <input type="radio" id="une" name="radio" value="une"
+                           checked>
+                    <label class="contentFlux" for="une"> La Une
+                        <img src="icon/fr.png" class="iconFlux" alt="france"/>
+                    </label>
+                </div>
+            
+                <div id="flux_monde" onclick="changeFlux(this);">
+                    <input type="radio" id="monde" name="radio" value="monde">
+                    <label class="contentFlux" for="monde"> International
+                        <img src="icon/world.png" class="iconFlux" alt="monde"/>
+                    </label>
+                </div>
+            
+                <div id="flux_sciences" onclick="changeFlux(this);">
+                    <input type="radio" id="sciences" name="radio" value="sciences">
+                    <label class="contentFlux" for="sciences"> Sciences
+                        <img src="icon/physic.png" class="iconFlux" alt="sciences"/>
+                    </label>
+                </div>
+                
+                <div class="content_rss_more"></div>
+                
+                <div class="contentFlux button_more_rss">
+                    <button onclick="addChannel()"><i class="fas fa-plus-circle"></i></button>
+                </div>
+        
             </div>
-
-            <div id="flux_monde" onclick="changeFlux(this)">
-                <input type="radio" id="monde" name="radio" value="monde">
-                <label class="contentFlux" for="monde"> International
-                    <img src="icon/world.png" class="iconFlux" alt="monde"/>
-                </label>
-            </div>
-
-            <div id="flux_sciences" onclick="changeFlux(this)">
-                <input type="radio" id="sciences" name="radio" value="sciences">
-                <label class="contentFlux" for="sciences"> Sciences
-                    <img src="icon/physic.png" class="iconFlux" alt="sciences"/>
-                </label>
-            </div>
-
-        </div>
-        <div class="triSelect">
-            <p>Sélectionner l'ordre</p>
-            <img class="triSort" src="icon/sort.png" alt="sort"/>
-            <img class="triSort" src="icon/reverse_sort.png" alt="reverse_sort"/>
         </div>
     </div>
     
-    <div class="content"></div>
+    
+    <div class="content">
+        <ul class="collapsible allContentContainer">
+            <li class="active">
+                <div class="collapsible-header no-style allNews" onclick="collapsibleEvent(this, 'filter')">
+                    <div class="header_selector">
+                        <p>Dernières actualités</p>
+                        <i class="fas fa-chevron-right"></i>
+<!--                        <i class="fas fa-arrow-alt-circle-right"></i>-->
+                    </div>
+                </div>
+                <div class="collapsible-body no-style">
+                    <div class="filter flux">
+                        <div class="icon-u-read" id="r">
+                            <input type="checkbox" id="filter_r" name="filter" value="filter_r">
+                            <label class="textCheckbox" for="filter_r">
+                                Afficher uniquement les actualités non-lues
+                            </label>
+                        </div>
+                    </div>
+                    <div class="news_container news-u-r"></div>
+                    <div class="news-no-content n-u-r">
+                        <p>Erreur de chargement des actualités <i class="fas fa-exclamation-circle"></i></p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="collapsible allContentContainer">
+            <li class="">
+                <div class="collapsible-header no-style selectedNews" onclick="collapsibleEvent(this, 'filter')">
+                    <div class="header_selector">
+                        <p>Déjà lues</p>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="collapsible-body no-style">
+                    <div class="news_container news-r"></div>
+                    <div class="news-no-content n-r">
+                        <p>Aucune news à afficher <i class="fas fa-exclamation-circle"></i></p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
     
     <div class="footer">
         <p>Actualités • Utilisation personnelle</p>
@@ -84,5 +140,75 @@
         </div>
     </div>
 </div>
+<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <header class="modal__header">
+                <h2 class="modal__title" id="modal-1-title">
+                    Ajouter un flux RSS
+                </h2>
+                <button class="modal__close__i" aria-label="Close modal" data-micromodal-close>
+                    <i class="fas fa-times"></i>
+                </button>
+            </header>
+            <main class="modal__content" id="modal-1-content">
+    
+                <div class="modal__tabs">
+                    <button class="tab__link active" onclick="changeTabs(this, 'd')">Suggestions</button>
+                    <button class="tab__link" onclick="changeTabs(this, 'e')">URL</button>
+                </div>
+                
+                <div id="d" class="tab__content default">
+                    <div class="modal__selector">
+                        <div class="modal__selector_header">
+                            <p class="txt_display">Choisir un flux à ajouter</p>
+                        </div>
+                        
+                        <div class="modal__selector_content">
+                            <label for="value__football">Football<i class="fas fa-futbol"></i>
+                                <input type="checkbox" id="value__football" class="input__selector">
+                            </label>
+                            <label for="value__rugby">Rugby<i class="fas fa-football-ball"></i>
+                                <input type="checkbox" id="value__rugby" class="input__selector">
+                            </label>
+                            <label for="value__biking">Cyclisme<i class="fas fa-biking"></i>
+                                <input type="checkbox" id="value__biking" class="input__selector">
+                            </label>
+                            <label for="value__weather">Climat<i class="fas fa-cloud"></i>
+                                <input type="checkbox" id="value__weather" class="input__selector">
+                            </label>
+                            <label for="value__videogames">Jeux-vidéo<i class="fas fa-gamepad"></i>
+                                <input type="checkbox" id="value__videogames" class="input__selector">
+                            </label>
+                            <label for="value__cooking">Gastronomie<i class="fas fa-cookie"></i>
+                                <input type="checkbox" id="value__cooking" class="input__selector">
+                            </label>
+                            <label for="value__camera">Photos<i class="fas fa-camera"></i>
+                                <input type="checkbox" id="value__camera" class="input__selector">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+    
+                <div id="e" class="tab__content">
+                    <label for="get_url_rss"> URL du flux RSS
+                        <input type="text" id="get_url_rss" class="showFIRST inputModal" placeholder="https://...">
+                    </label>
+                    <label for="get_url_rss"> Nom à afficher
+                        <input type="text" id="get_url_rss_name" class="showFIRST inputModal" placeholder="Sport">
+                    </label>
+                    <p class="modal__description">Vous pouvez ajouter un flux personnalisé d'actualités.
+                        Ajoutez l'URL du flux RSS et un nom à associer. Le flux sera affiché dans un nouvel onglet.
+                    </p>
+                </div>
+            </main>
+            <footer class="modal__footer">
+                <button class="modal__btn modal__btn-primary" onclick="closeModal()">Continue</button>
+                <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Close</button>
+            </footer>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
