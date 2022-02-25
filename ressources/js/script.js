@@ -29,8 +29,6 @@ const refreshActus = document.querySelector('.refreshActus');
 window.onload = function (){
     loadActus(setLS);
     collapsibleEvent();
-    // setTimeout(function(){findDuplicate()}, 1000)
-    // initialFlux();
 }
 
 //--------------------------------------------------------------------------------------------
@@ -380,8 +378,8 @@ function setActus(maj, categories, tableau) {
         // txt_title.split(" ").forEach(child => {
             // console.log(child.split(":"))
             for (let a = i; a < 10; a++) {
-                if (tableau[a][0].split(" ").includes(child)) {
-                // if (txt_title.split(" ").includes(child)) {
+                // if (tableau[a][0].split(" ").includes(child)) {
+                if (txt_title.split(" ").includes(child)) {
                     if (blacklist === undefined || blacklist === null) {
                         if (det.includes(child.toLowerCase())) {
                         } else {
@@ -442,52 +440,15 @@ function setActus(maj, categories, tableau) {
 
         divALL.appendChild(ul_collapsible);
 
-
-        // const Date = divALL.children[0].children[1].textContent.split(",")[1];
-        // tabDate.push(Date);
-
-        // div.style.height = 3*(divClass.offsetHeight + img.offsetHeight + 70) + " px";
-
-        // console.log(divClass.offsetHeight + img.offsetHeight + 70)
-
         divALL.id = "element_" + i;
+
         news_u_r.appendChild(divALL);
+
     }
-    // setActusAnchors(numberActus);
     findDuplicate();
 }
 
-function newFlux(){
-    const url = 'https://www.lemonde.fr/sport/rss_full.xml';
-    //----------------------------------------------------------------------------
-    //
-    // https://www.lemonde.fr/rss/une.xml
-    // https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.lemonde.fr%2Frss%2Fune.xml
-    // https://rss.com/blog/popular-rss-feeds/
-    // https://micromodal.vercel.app/
-    //
-    //----------------------------------------------------------------------------
-    const feedURL = "https://www.lemonde.fr/rss/une.xml"
-    $.ajax({
-        type: 'GET',
-        url: "https://api.rss2json.com/v1/api.json?rss_url=" + url,
-        dataType: 'jsonp',
-        success: function(result) {
-            console.log(result);
-            const all = result.items;
-            all.forEach(e => {
-                // e.description
-                // e.enclosure.link
-                // e.link
-                // e.pubDate
-                // e.pubDate
 
-                console.log(e.enclosure.link)
-            })
-        }
-    });
-    //----------------------------------------------------------------------------
-}
 
 document.querySelectorAll('.input__selector').forEach(e => {e.onclick = function (){checkIfChecked(e)}})
 
@@ -503,12 +464,27 @@ function checkIfChecked(e){
 
 function addChannel(){
     MicroModal.show('modal-1');
-
 }
 
 function closeModal(){
     MicroModal.close('modal-1');
+    addFlux();
+}
 
+function addFlux(){
+    const container = document.createElement('DIV');
+    container.classList.add('expand_flex');
+    container.onclick = function (){changeFlux(this)}
+
+    const label = document.createElement('LABEL');
+    label.classList.add('e');
+    label.innerText = "ok"
+    const input = document.createElement('INPUT');
+    input.classList.add('e');
+    input.setAttribute('type', 'radio');
+    input.setAttribute('value', "ok");
+
+    content_rss_more.appendChild(container)
 }
 
 function changeTabs(e, index){
@@ -987,10 +963,10 @@ filter_r.addEventListener('click', () => {
 })
 
 function changeFlux(button){
-    array_child = [];
+    let array_child = [];
     array_o_i = [];
     array_o = [];
-    newArr = [];
+    let newArr = [];
 
     expandFlex(button);
 
