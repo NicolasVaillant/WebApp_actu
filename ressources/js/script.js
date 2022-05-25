@@ -140,7 +140,11 @@ function setLS(){
 function initialFlux(){
 
     if(ACTUS_LOCALSTORAGE !== ""){
+        // console.log(ACTUS_LOCALSTORAGE)
         setActus(ACTUS_LOCALSTORAGE.ARRAY_UNE[0], ACTUS_LOCALSTORAGE.ARRAY_UNE[1], ACTUS_LOCALSTORAGE.ARRAY_UNE[2]);
+        setActus(ACTUS_LOCALSTORAGE.ARRAY_MONDE[0], ACTUS_LOCALSTORAGE.ARRAY_MONDE[1], ACTUS_LOCALSTORAGE.ARRAY_MONDE[2]);
+        setActus(ACTUS_LOCALSTORAGE.ARRAY_SCIENCES[0], ACTUS_LOCALSTORAGE.ARRAY_SCIENCES[1], ACTUS_LOCALSTORAGE.ARRAY_SCIENCES[2]);
+        showOnly("La Une");
         document.querySelector('.n-u-r').classList.add('hiddenElement');
     }else{
         console.error('Empty tab');
@@ -154,12 +158,12 @@ function setActus(maj, categories, tableau) {
     const news_u_r = document.querySelector('.news-u-r');
     const news_r = document.querySelector('.news-r');
 
-    while (news_u_r.firstChild) {
-        news_u_r.removeChild(news_u_r.lastChild);
-    }
-    while (news_r.firstChild) {
-        news_r.removeChild(news_r.lastChild);
-    }
+    // while (news_u_r.firstChild) {
+    //     news_u_r.removeChild(news_u_r.lastChild);
+    // }
+    // while (news_r.firstChild) {
+    //     news_r.removeChild(news_r.lastChild);
+    // }
 
     let numberActus = 10;
 
@@ -233,6 +237,7 @@ function setActus(maj, categories, tableau) {
 
         const img = document.createElement("img");
         img.classList.add('actusIMG');
+        img.setAttribute('loading', 'lazy')
         img.src = tableau[i][4];
 
         //DATE ACTUS
@@ -298,7 +303,7 @@ function setActus(maj, categories, tableau) {
 
         const title = document.createElement("p");
         title.classList.add('actusTitle');
-        let txt_title = "Emmanuel Macron qui a recu présidentielle"
+        // let txt_title = "Emmanuel Macron qui a recu présidentielle"
         // title.innerHTML = txt_title;
         title.innerHTML = tableau[i][0]
 
@@ -314,6 +319,7 @@ function setActus(maj, categories, tableau) {
         const asset = document.createElement("div");
         asset.classList.add('asset');
         const i_link = document.createElement("i");
+        const p_link = document.createElement("p");
         const a_i_link = document.createElement("a");
         const i_improve = document.createElement("i");
         const i_bin = document.createElement("i");
@@ -326,6 +332,7 @@ function setActus(maj, categories, tableau) {
         content_others.classList.add('content_others');
         i_link.classList.add('fas');
         i_link.classList.add('fa-external-link-square-alt');
+        p_link.innerHTML = "Ouvrir dans un autre onglet"
         i_bin.classList.add('fas');
         i_bin.classList.add('fa-trash-alt');
         i_blank_others.classList.add('fas');
@@ -335,7 +342,8 @@ function setActus(maj, categories, tableau) {
         i_improve.onclick = function () {
             improve_selection(this, true)
         }
-        a_i_link.appendChild(i_link)
+        p_link.appendChild(i_link)
+        a_i_link.appendChild(p_link)
         asset.appendChild(a_i_link);
         asset.appendChild(i_bin);
 
@@ -379,7 +387,7 @@ function setActus(maj, categories, tableau) {
             // console.log(child.split(":"))
             for (let a = i; a < 10; a++) {
                 // if (tableau[a][0].split(" ").includes(child)) {
-                if (txt_title.split(" ").includes(child)) {
+                if (tableau[a][0].split(" ").includes(child)) {
                     if (blacklist === undefined || blacklist === null) {
                         if (det.includes(child.toLowerCase())) {
                         } else {
@@ -443,12 +451,10 @@ function setActus(maj, categories, tableau) {
         divALL.id = "element_" + i;
 
         news_u_r.appendChild(divALL);
-
+        // console.log(divALL)
     }
     findDuplicate();
 }
-
-
 
 document.querySelectorAll('.input__selector').forEach(e => {e.onclick = function (){checkIfChecked(e)}})
 
@@ -973,21 +979,21 @@ function changeFlux(button){
     if(button.id === "flux_une"){
         showOnly("La Une");
 
-        setActus(ACTUS_LOCALSTORAGE.ARRAY_UNE[0], ACTUS_LOCALSTORAGE.ARRAY_UNE[1], ACTUS_LOCALSTORAGE.ARRAY_UNE[2]);
+        // setActus(ACTUS_LOCALSTORAGE.ARRAY_UNE[0], ACTUS_LOCALSTORAGE.ARRAY_UNE[1], ACTUS_LOCALSTORAGE.ARRAY_UNE[2]);
         if(news_r.childElementCount === 0) {
             document.querySelector('.n-r').classList.remove('hiddenElement');
         }
     }
     else if (button.id === "flux_monde"){
         showOnly("International");
-        setActus(ACTUS_LOCALSTORAGE.ARRAY_MONDE[0], ACTUS_LOCALSTORAGE.ARRAY_MONDE[1], ACTUS_LOCALSTORAGE.ARRAY_MONDE[2]);
+        // setActus(ACTUS_LOCALSTORAGE.ARRAY_MONDE[0], ACTUS_LOCALSTORAGE.ARRAY_MONDE[1], ACTUS_LOCALSTORAGE.ARRAY_MONDE[2]);
         if(news_r.childElementCount === 0) {
             document.querySelector('.n-r').classList.remove('hiddenElement');
         }
     }
     else if (button.id === "flux_sciences"){
         showOnly("Sciences");
-        setActus(ACTUS_LOCALSTORAGE.ARRAY_SCIENCES[0], ACTUS_LOCALSTORAGE.ARRAY_SCIENCES[1], ACTUS_LOCALSTORAGE.ARRAY_SCIENCES[2]);
+        // setActus(ACTUS_LOCALSTORAGE.ARRAY_SCIENCES[0], ACTUS_LOCALSTORAGE.ARRAY_SCIENCES[1], ACTUS_LOCALSTORAGE.ARRAY_SCIENCES[2]);
         if(news_r.childElementCount === 0) {
             document.querySelector('.n-r').classList.remove('hiddenElement');
         }
@@ -1011,19 +1017,27 @@ function showOnly(item){
 
     const divALL = document.querySelectorAll('.actusDIVALL')
 
-    divALL.forEach(function(divRes){
-        let divP = divRes.children[0].children[0].children[0].children[0].children[1];
-        if(divP.innerText === item){
-            divRes.style.display = "flex";
+    divALL.forEach((e) => {
+        const fam = e.querySelector('.actusDIVClass').dataset.class
+        if(fam === item){
+            e.classList.remove('actusDIVALL_disabled')
+        }else{
+            e.classList.add('actusDIVALL_disabled')
         }
-        else if(item === "ALl"){
-            //ADDED MISSING ELEMENT NOT ADDED ALL ELEMENTS
-            divRes.style.display = "flex";
-        }
-        else{
-            divRes.style.display = "none";
-        }
-    });
+    })
+
+    // divALL.forEach(function(divRes){
+    //     let divP = divRes.children[0].children[0].children[0].children[0].children[1];
+    //     // console.log(divP)
+    //     if(divP.innerText === item){
+    //         // divRes.style.display = "flex";
+    //         // divRes.style.height = "auto";
+    //     }
+    //     else{
+    //         // divRes.style.display = "none";
+    //         // divRes.style.height = "0";
+    //     }
+    // });
 }
 
 let counter = 0;

@@ -13,17 +13,28 @@ function newFlux(callback, categories = 'others', url = 'https://www.lemonde.fr/
     //
     //----------------------------------------------------------------------------
     const feedURL = "https://www.lemonde.fr/rss/une.xml"
-    $.ajax({
-        type: 'GET',
-        url: "https://api.factmaven.com/xml-to-json?xml=" + url,
-        success: function(result) {
-            console.log(result)
-            // if(result.status === 'ok'){result.items.forEach(news => {callback(news, categories)})}
-        },
-        error: function (e){
-            console.log("e : ", e)
+    // $.ajax({
+    //     type: 'GET',
+    //     url: "https://www.toptal.com/developers/feed2json/convert?url=" + url,
+    //     success: function(result) {
+    //         console.log(result)
+    //         // if(result.status === 'ok'){result.items.forEach(news => {callback(news, categories)})}
+    //     },
+    //     error: function (e){
+    //         console.log(e)
+    //     }
+    // });
+
+    const nghttp = new XMLHttpRequest();
+    nghttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            const str = this.responseText;
+            console.log(str)
         }
-    });
+    };
+    nghttp.open("GET", "https://www.toptal.com/developers/feed2json/convert?url=" + url, true);
+    nghttp.setRequestHeader('Content-Type', 'application/xml');
+    nghttp.send();
 
     // fetch("https://api.factmaven.com/xml-to-json?xml=" + url).then(res => res.json())
 

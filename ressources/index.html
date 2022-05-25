@@ -60,21 +60,28 @@
                     <input type="radio" id="une" name="radio" value="une"
                            checked>
                     <label class="contentFlux" for="une"> La Une
-                        <img src="icon/fr.png" class="iconFlux" alt="france"/>
+                        <i class="fas fa-flag"></i>
                     </label>
                 </div>
             
                 <div id="flux_monde" onclick="changeFlux(this);">
                     <input type="radio" id="monde" name="radio" value="monde">
                     <label class="contentFlux" for="monde"> International
-                        <img src="icon/world.png" class="iconFlux" alt="monde"/>
+                        <i class="fas fa-globe-europe"></i>
                     </label>
                 </div>
             
                 <div id="flux_sciences" onclick="changeFlux(this);">
                     <input type="radio" id="sciences" name="radio" value="sciences">
                     <label class="contentFlux" for="sciences"> Sciences
-                        <img src="icon/physic.png" class="iconFlux" alt="sciences"/>
+                        <i class="fas fa-atom"></i>
+                    </label>
+                </div>
+    
+                <div id="flux_apple" onclick="changeFlux(this);">
+                    <input type="radio" id="apple" name="radio" value="apple">
+                    <label class="contentFlux" for="apple"> Apple
+                        <i class="fab fa-apple"></i>
                     </label>
                 </div>
                 
@@ -110,7 +117,7 @@
                     </div>
                     <div class="news_container news-u-r"></div>
                     <div class="news-no-content n-u-r">
-                        <p>Erreur de chargement des actualités <i class="fas fa-exclamation-circle"></i></p>
+                        <p>Erreur de chargement<i class="fas fa-exclamation-circle"></i></p>
                     </div>
                 </div>
             </li>
@@ -142,6 +149,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
     <div class="modal__overlay" tabindex="-1" data-micromodal-close>
         <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">

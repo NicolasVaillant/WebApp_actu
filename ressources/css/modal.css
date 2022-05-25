@@ -36,6 +36,13 @@
     justify-content: space-between;
 }
 
+@media all and (max-width: 500px) {
+    .modal__container{
+        max-width: 1000px!important;
+        width: 90% !important;
+    }
+}
+
 .modal__header {
     display: flex;
     justify-content: space-between;

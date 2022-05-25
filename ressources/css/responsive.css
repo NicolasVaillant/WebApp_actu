@@ -87,7 +87,7 @@
         align-items: flex-start;
     }
     .actusIMG{
-        min-width: 50px;
+        width: 100%;
         min-height: 50px;
     }
     .actusDate{font-size: 14px}

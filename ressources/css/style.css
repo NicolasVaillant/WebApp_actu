@@ -187,8 +187,15 @@ input:not([type = "checkbox"]){
     align-content: center;
     grid-template-columns: 1fr 10%;
 }
-.button_more_rss{
+.contentFlux i{
     display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+.button_more_rss{
+    display: none!important;
+    /*display: flex;*/
     align-items: center;
     justify-content: center;
 }
@@ -205,9 +212,14 @@ input:not([type = "checkbox"]){
 }
 #flux_une,
 #flux_monde,
-#flux_sciences{
+#flux_sciences,
+#flux_apple{
     flex: 1;
+    width: 100%;
     transition: var(--transition1);
+}
+#flux_apple{
+    display: none!important;
 }
 .expand_flex{flex: 2!important;}
 
@@ -330,6 +342,10 @@ li.active .fa-chevron-right{
     align-items: center;
     justify-content: center;
     position: relative;
+    transition: var(--transition1);
+}
+.actusDIVALL_disabled{
+    display: none!important;
 }
 
 .actusDIVParadelete,.actusDIVParalink{
@@ -373,13 +389,23 @@ li.active .fa-chevron-right{
     opacity: 1;
     display: flex;
 }
-.imgContainer{position: relative}
+.imgContainer{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.contentContainer{
+    width: 100%;
+}
 .actusIMG{
-    width: 8vw;
-    height: 8vw;
+    width: auto;
+    min-height: 100px;
+    min-width: 100%;
+    height: auto;
+    background: #f3f3f3;
     border: 2px solid var(--w_op);
     object-fit: cover;
-    border-radius: var(--border4);
+    border-radius: var(--border2);
 }
 .actusTitle{
     font-size: var(--font1);
@@ -426,11 +452,12 @@ li.active .fa-chevron-right{
 }
 .div_ext{
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
-    gap: 1em;
+    gap: .5em;
     margin: auto 0 auto auto;
     align-items: stretch;
-    justify-content: center;
+    justify-content: flex-start;
     align-content: center;
 }
 .div_in{
@@ -634,9 +661,10 @@ li.active .fa-chevron-right{
 }
 .content_collapsibleContainer{
     display: flex;
+    flex-direction: column!important;
 }
 .content_collapsibleContainer .asset{
-    width: 20%;
+    width: 100%;
     display: flex;
     align-items: center;
     /*gap: var(--gap2);*/
@@ -650,7 +678,7 @@ li.active .fa-chevron-right{
     font-size: var(--font1_2);
     padding: var(--padd2);
     cursor: pointer;
-    color: var(--b) !important;
+    /*color: var(--b) !important;*/
     transition: var(--transition3);
     border-radius: var(--border4);
 }
@@ -662,7 +690,7 @@ li.active .fa-chevron-right{
     font-size: 1em;
     font-weight: inherit;
     color: var(--b);
-    width: 80%;
+    width: 100%;
     grid-column: span 2 ;
 }
 .actusDate{
@@ -688,6 +716,7 @@ li.active .fa-chevron-right{
     display: -webkit-flex;
     display: -ms-flexbox;
     cursor: pointer;
+    flex-direction: column;
     -webkit-tap-highlight-color: transparent;
     padding: 1rem;
     gap: var(--gap2);
@@ -739,13 +768,21 @@ li.active .fa-chevron-right{
     background: var(--b_sec_o_hover);
     border-radius: var(--border1);
     width: 70%;
-    margin: auto;
+    padding: 1em;
+    margin: 1em auto;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1em;
     font-size: var(--font1);
     cursor: default;
+}
+.news-no-content p{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    gap: .5em;
 }
 .hiddenElement{display: none}
 
